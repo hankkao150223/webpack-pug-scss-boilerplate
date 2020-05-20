@@ -2,7 +2,16 @@
 
 A webpack 4 based boilerplate for building web apps.
 
+Fork Source [Link](https://github.com/alexnoz/webpack-pug-scss-boilerplate)
+
+## Log:
+
+- [ ] I change eslint standard to airbnb
+- [ ] Set to Multiple pages
+- [ ] Use Blueprint in VS Code and vs code can create pug/scss/js files
+
 ## Features:
+
 * [Pug](https://pugjs.org) as a template engine
 * [SCSS](http://sass-lang.com) preprocessor for CSS ([autoprefixer](https://github.com/postcss/autoprefixer) included)
 * JS linting with [Eslint](https://eslint.org), extends [eslint-config-standard](https://github.com/standard/eslint-config-standard), includes the following plugins:
