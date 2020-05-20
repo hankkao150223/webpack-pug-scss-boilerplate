@@ -3,9 +3,6 @@ const path = require('path')
 const glob = require('glob')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const HtmlPlugin = require('html-webpack-plugin')
-const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-const StylelintPlugin = require('stylelint-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const CleanPlugin = require('clean-webpack-plugin')
 const { StatsWriterPlugin } = require('webpack-stats-plugin')
@@ -73,13 +70,6 @@ const commonConfig = merge([
       children: false,
       modules: false
     },
-    plugins: [
-      new HtmlPlugin({
-        template: './index.pug'
-      }),
-      new FriendlyErrorsPlugin(),
-      new StylelintPlugin(lintStylesOptions)
-    ],
     module: {
       noParse: /\.min\.js/
     }
@@ -204,13 +194,39 @@ const developmentConfig = merge([
   parts.loadJS({ include: paths.app })
 ])
 
+// 2. Call `parts.page` for each page with necessary options
+const pages = [
+  parts.page({
+    title: 'Home',
+    entry: {
+      home: paths.app
+    },
+    template: path.join(paths.app, 'index.pug'),
+
+    // An array of chunks to include in the page
+    chunks: ['home', 'runtime', 'vendors']
+  }),
+  parts.page({
+    title: 'About',
+    path: 'about',
+    entry: {
+      about: path.join(paths.app, 'about')
+    },
+    template: path.join(paths.app, 'about/about.pug'),
+
+    chunks: ['about', 'runtime', 'vendors']
+  })
+]
+
 module.exports = env => {
   process.env.NODE_ENV = env
 
-  return merge(
-    commonConfig,
-    env === 'production' ? productionConfig : developmentConfig
-  )
+  const config = env === 'production'
+    ? productionConfig
+    : developmentConfig
+
+  // 3. Merge these pages into the final config
+  return merge(commonConfig, config, ...pages)
 }
 
 function getPaths ({

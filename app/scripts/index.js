@@ -1,5 +1,3 @@
-import '../styles/main.scss'
-
-if (process.env.NODE_ENV !== 'production') {
-  require('../index.pug')
+export default function () {
+  console.log('this is in script folder js')
 }

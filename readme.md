@@ -7,7 +7,7 @@ Fork Source [Link](https://github.com/alexnoz/webpack-pug-scss-boilerplate)
 ## Log:
 
 - [ ] I change eslint standard to airbnb
-- [ ] Set to Multiple pages
+- [x] Set to Multiple pages
 - [ ] Use Blueprint in VS Code and vs code can create pug/scss/js files
 
 ## Features:
